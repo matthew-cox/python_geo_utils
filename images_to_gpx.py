@@ -97,7 +97,7 @@ def process_directory(directory=None):
     for the_file in os.listdir(directory):
         image_file = os.sep.join([directory, the_file])
 
-        logging.debug("File is '%s'", image_file)
+        logging.info("File is '%s'", image_file)
         if os.path.isfile(image_file):
             # Open image file for reading (binary mode)
             file_handle = open(image_file, 'rb')
