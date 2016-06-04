@@ -133,6 +133,23 @@ def process_directory(directory=None):
 #
 ###############################################################################
 #
+# is_directory()
+#
+def is_directory(argument):
+    '''
+    is_directory(argument)
+
+    Argument validator for the CLI args
+    '''
+
+    if os.path.isdir(argument):
+        return argument
+    else:
+        error = "{} is not a directory".format(argument)
+        raise argparse.ArgumentTypeError(error)
+#
+###############################################################################
+#
 # main()
 #
 def main():
@@ -144,10 +161,14 @@ def main():
     #
     parser = argparse.ArgumentParser(description=('Take a directory of GPS tagged'
                                                   ' images and output GPX track'))
-    parser.add_argument('-d', '--directory', default='.', action='store',
-                        help='Which directory of images to process')
+
+    parser.add_argument('-d', '--directory', default=[], action='append',
+                        required=True, type=is_directory,
+                        help='Which directories of images to process')
+
     parser.add_argument('--debug', default=False, action='store_true',
                         help='Enable additional output')
+
     parser.add_argument('-l', '--log-level', action='store', required=False,
                         choices=["debug", "info", "warning", "error", "critical"],
                         default=DEFAULT_LOG_LEVEL,
@@ -168,16 +189,16 @@ def main():
     gpx_track = gpxpy.gpx.GPXTrack()
     gpx.tracks.append(gpx_track)
 
-    # Create first segment in our GPX track:
-    gpx_segment = gpxpy.gpx.GPXTrackSegment()
-    gpx_track.segments.append(gpx_segment)
+    for directory in args.directory:
+        # Create a segment in our GPX track:
+        gpx_segment = gpxpy.gpx.GPXTrackSegment()
+        gpx_track.segments.append(gpx_segment)
 
-    # NOTE: in the future we could create one segment for a list of dirs
-    track = process_directory(args.directory)
+        track = process_directory(directory)
 
-    for track_time in sorted(track.iterkeys()):
-        #pprint(track[track_time])
-        gpx_segment.points.append(track[track_time])
+        for track_time in sorted(track.iterkeys()):
+            #pprint(track[track_time])
+            gpx_segment.points.append(track[track_time])
 
     #pprint(track)
     print gpx.to_xml()
