@@ -164,7 +164,8 @@ def main():
 
     parser.add_argument('-d', '--directory', default=[], action='append',
                         required=True, type=is_directory,
-                        help='Which directories of images to process')
+                        help='Which directory of images to process. Repeat to '
+                        'process multiple directories.')
 
     parser.add_argument('--debug', default=False, action='store_true',
                         help='Enable additional output')
