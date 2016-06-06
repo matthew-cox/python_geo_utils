@@ -15,32 +15,31 @@ DEFAULT_LOG_LEVEL = 'warning'
 #
 ###############################################################################
 #
-# _convert_to_degress() - borrowed from somewhere. source to come
+# _convert_to_degress()
+#
+# Implementation from: https://gist.github.com/erans/983821
 #
 def _convert_to_degress(value):
     """
     Helper function to convert the GPS coordinates stored in the EXIF
     to degress in float format
     """
-    #print dumper.dump( value )
-    # pylint: disable=invalid-name
-    d0 = value[0].num
-    d1 = value[0].den
-    d = float(d0) / float(d1)
+    degree = value[0]
+    degree = float(degree.num) / float(degree.den)
 
-    m0 = value[1].num
-    m1 = value[1].den
-    m = float(m0) / float(m1)
+    minute = value[1]
+    minute = float(minute.num) / float(minute.den)
 
-    s0 = value[2].num
-    s1 = value[2].den
-    s = float(s0) / float(s1)
+    second = value[2]
+    second = float(second.num) / float(second.den)
 
-    return d + (m / 60.0) + (s / 3600.0)
+    return degree + (minute / 60.0) + (second / 3600.0)
 #
 ###############################################################################
 #
-# get_lat_lon_ele() - borrowed from somewhere. source to come
+# get_lat_lon_ele()
+#
+# Implementation from: https://gist.github.com/erans/983821
 #
 def get_lat_lon_ele(gps_info):
     """
@@ -70,10 +69,7 @@ def get_lat_lon_ele(gps_info):
             lon = 0 - lon
 
         if gps_altitude[0].den:
-            # pylint: disable=invalid-name
-            e0 = gps_altitude[0].num
-            e1 = gps_altitude[0].den
-            ele = float(e0) / float(e1)
+            ele = float(gps_altitude[0].num) / float(gps_altitude[0].den)
 
     return lat, lon, ele
 #

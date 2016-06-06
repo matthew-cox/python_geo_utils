@@ -1,4 +1,4 @@
-**Last Updated: 2016-06-06 08:24 @matthew-cox**
+**Last Updated: 2016-06-06 08:34 @matthew-cox**
 
 Table of Contents
 =================
@@ -11,6 +11,7 @@ Table of Contents
       * [Options](#options)
       * [Process A Directory](#process-a-directory)
       * [Process Multiple Directories](#process-multiple-directories)
+    * [Hat Tip](#hat-tip)
 
 #Images To GPX
 
@@ -94,3 +95,10 @@ To install all the things you need for your local Python environment:
     <ele>1.78895162521</ele></trkpt>
     <trkpt lat="37.7951861111" lon="-122.40455">
     <ele>9.76016260163</ele></trkpt></trkseg></trk></gpx>
+
+##Hat Tip
+
+Thanks to [Eran Sandler](http://eran.sandler.co.il) for the example code (`_convert_to_degress` and `get_lat_lon`):
+
+* [Extract GPS Latitude and Longitude Data from EXIF using Python Imaging Library (PIL)](http://eran.sandler.co.il/2011/05/20/extract-gps-latitude-and-longitude-data-from-exif-using-python-imaging-library-pil/)
+* [Get Latitude and Longitude from EXIF using PIL](https://gist.github.com/erans/983821)
