@@ -37,6 +37,24 @@ def _convert_to_degress(value):
 #
 ###############################################################################
 #
+# clean_output()
+#
+def clean_output(output=None):
+    '''
+    clean_output(output=None)
+
+    Remove extra EOLs from gpx.to_xml()
+    '''
+    if output:
+        # remove some superfluous EOLs
+        point_pattern = re.compile(r'^(<trkpt [^>]*>)\n', re.MULTILINE)
+        elevation_pattern = re.compile(r'^(.*</ele>)\n', re.MULTILINE)
+        output = point_pattern.sub(r"\1", output)
+        output = elevation_pattern.sub(r"\1", output)
+    return output
+#
+###############################################################################
+#
 # get_lat_lon_ele()
 #
 # Implementation from: https://gist.github.com/erans/983821
@@ -198,7 +216,7 @@ def main():
             gpx_segment.points.append(track[track_time])
 
     #pprint(track)
-    print gpx.to_xml()
+    print clean_output(gpx.to_xml())
 
 if __name__ == '__main__':
     main()

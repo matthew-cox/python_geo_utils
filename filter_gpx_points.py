@@ -98,7 +98,8 @@ def main():
     #
     # Handle CLI args
     #
-    parser = argparse.ArgumentParser(description=('Take a GPX file and strip'))
+    parser = argparse.ArgumentParser(description=('Take an existing GPX file and filter the points '
+                                                  'to include only those a certain distance apart.'))
 
     parser.add_argument('-f', '--files', default=[], action='append',
                         required=True, type=argparse.FileType('r'),
@@ -110,7 +111,8 @@ def main():
 
     parser.add_argument('-d', '--distance', default=DEFAULT_DISTANCE,
                         action='store', type=float,
-                        help='Minimum distance between points for inclusion.')
+                        help=('Minimum distance between points for inclusion. '
+                              'Default: {}'.format(DEFAULT_DISTANCE)))
 
     parser.add_argument('-l', '--log-level', action='store', required=False,
                         choices=["debug", "info", "warning", "error", "critical"],
