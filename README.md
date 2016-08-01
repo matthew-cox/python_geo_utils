@@ -72,7 +72,7 @@ Take an existing GPX file and filter the points to include only those a certain 
 
 <details>
   <summary>`$ ./filter_gpx_points.py -l info -f ./test.gpx | head`</summary>
-  <code>
+```
 INFO:filter_gpx_points.process_files:Processing file: '<open file './test.gpx', mode 'r' at 0x10e71ded0>'
 INFO:filter_gpx_points.process_files:Processing track: '2016/6/16 7:43:3 GMT'
 INFO:filter_gpx_points.process_files:Reduced points from '480' to '122'
@@ -86,7 +86,7 @@ INFO:filter_gpx_points.process_files:Reduced points from '480' to '122'
 <trkpt lat="59.33065333" lon="18.032735"><ele>79.0</ele><time>2016-06-16T07:46:34Z</time></trkpt>
 <trkpt lat="59.33027333" lon="18.03428667"><ele>111.0</ele><time>2016-06-16T07:47:34Z</time></trkpt>
 <trkpt lat="59.32986167" lon="18.03614167"><ele>63.0</ele><time>2016-06-16T07:49:04Z</time></trkpt>
-  </code>
+```
 </details>
 
 #Images To GPX
@@ -115,21 +115,21 @@ Take a directory of GPS tagged images and output GPX file representing the track
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20`</summary>
-  <code>
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd" version="1.0" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
 <trk>
 <trkseg>
 <trkpt lat="37.7969027778" lon="-122.405388889"><ele>15.8055727554</ele></trkpt>
 <trkpt lat="37.7954222222" lon="-122.404869444"><ele>5.84390243902</ele></trkpt></trkseg></trk></gpx>
-  </code>
+```
 </details>
 
 ###Process Multiple Directories
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20 -d ~/Pictures/2015/10/21`</summary>
-  <code>
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd" version="1.0" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
 <trk>
@@ -146,7 +146,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
 <trkpt lat="37.8053083333" lon="-122.400908333"><ele>3.31253071253</ele></trkpt>
 <trkpt lat="37.8045472222" lon="-122.400916667"><ele>1.78895162521</ele></trkpt>
 <trkpt lat="37.7951861111" lon="-122.40455"><ele>9.76016260163</ele></trkpt></trkseg></trk></gpx>
-  </code>
+```
 </details>
 
 ##Hat Tip
