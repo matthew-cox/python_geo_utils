@@ -72,7 +72,7 @@ Take an existing GPX file and filter the points to include only those a certain 
 
 <details>
   <summary>`$ ./filter_gpx_points.py -l info -f ./test.gpx | head`</summary>
-```
+```xml
 INFO:filter_gpx_points.process_files:Processing file: '<open file './test.gpx', mode 'r' at 0x10e71ded0>'
 INFO:filter_gpx_points.process_files:Processing track: '2016/6/16 7:43:3 GMT'
 INFO:filter_gpx_points.process_files:Reduced points from '480' to '122'
@@ -115,7 +115,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20`</summary>
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd" version="1.0" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
 <trk>
@@ -129,7 +129,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20 -d ~/Pictures/2015/10/21`</summary>
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/0" xsi:schemaLocation="http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd" version="1.0" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
 <trk>
