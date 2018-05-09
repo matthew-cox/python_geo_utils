@@ -34,15 +34,16 @@ Small collection of Python scripts for working with GPS and GPX. Included:
 
 ## Python
 
-This code has been tested with Python 2.7.x
+This code has been tested with Python 2.7.x and 3.6.x
 
-#### Mac OS X El Capitan
+#### Pyenv + Virtualenv
 
-If you are running Mac OS X El Capitan, consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-global, more up-to-date Python.
+Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-global, more up-to-date Python.
 
 ### Non-standard Requirements
 
 * [ExifRead](https://pypi.python.org/pypi/ExifRead/)
+* [geojson](https://github.com/frewsxcv/python-geojson)
 * [gpxpy](https://github.com/tkrajina/gpxpy)
 * [LatLon](https://pypi.python.org/pypi/LatLon/1.0.2)
 
@@ -50,7 +51,6 @@ If you are running Mac OS X El Capitan, consider leveraging [PyEnv](https://gith
 
 #### Configure Local Python Virtualenv
 
-    ```bash
     # install newish python 3.6.x
     $ pyenv install 3.6.4
 
@@ -65,15 +65,14 @@ If you are running Mac OS X El Capitan, consider leveraging [PyEnv](https://gith
 
     # install all the requirements
     $ pip install -r ./requirements.txt
-    ```
 
-# Filter GPX Points
+## Filter GPX Points
 
 Take an existing GPX file and filter the points to include only those a certain distance apart.
 
-## Execution
+### Execution
 
-### Options
+#### Options
 
     $ ./filter_gpx_points.py -h
     usage: filter_gpx_points.py [-h] -f FILES [--debug] [-d DISTANCE] [-l {debug,info,warning,error,critical}]
@@ -90,7 +89,7 @@ Take an existing GPX file and filter the points to include only those a certain 
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
 
-### Process A GPX File
+#### Process A GPX File
 
 <details>
   <summary>`$ ./filter_gpx_points.py -l info -f ./test.gpx | head`</summary>
@@ -111,13 +110,13 @@ INFO:filter_gpx_points.process_files:Reduced points from '480' to '122'
 ```
 </details>
 
-# GPX To GeoJSON
+## GPX To GeoJSON
 
 Take GPX files and create a GeoJSON equivilant.
 
-## Execution
+### Execution
 
-### Options
+#### Options
 
     $ ./gpx_to_geojson.py -h
 
@@ -133,13 +132,13 @@ Take GPX files and create a GeoJSON equivilant.
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
 
-# Images To GPX
+## Images To GPX
 
 Take a directory of GPS tagged images and output GPX file representing the tracks.
 
-## Execution
+### Execution
 
-### Options
+#### Options
 
     $ ./images_to_gpx.py -h
 
@@ -155,7 +154,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
 
-### Process A Directory
+#### Process A Directory
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20`</summary>
@@ -169,7 +168,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
 ```
 </details>
 
-### Process Multiple Directories
+#### Process Multiple Directories
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20 -d ~/Pictures/2015/10/21`</summary>
@@ -193,13 +192,13 @@ Take a directory of GPS tagged images and output GPX file representing the track
 ```
 </details>
 
-# Points To GeoJSON
+## Points To GeoJSON
 
 Take a JSON file of `Lat, Lng` pairs and convert to GeoJSON
 
-## Execution
+### Execution
 
-### Options
+#### Options
 
     $ ./points_to_geojson.py -h
 
@@ -215,7 +214,7 @@ Take a JSON file of `Lat, Lng` pairs and convert to GeoJSON
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
 
-# Hat Tip
+## Hat Tip
 
 Thanks to [Eran Sandler](http://eran.sandler.co.il) for the example code (`_convert_to_degress` and `get_lat_lon`):
 
