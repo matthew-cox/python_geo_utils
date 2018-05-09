@@ -1,4 +1,4 @@
-**Last Updated: 2016-07-01 13:09 @matthew-cox**
+**Last Updated: 2018-05-09 17:24 @matthew-cox**
 
 Table of Contents
 =================
@@ -7,51 +7,73 @@ Table of Contents
         * [Mac OS X El Capitan](#mac-os-x-el-capitan)
       * [Non-standard Requirements](#non-standard-requirements)
       * [Initial Setup](#initial-setup)
+        * [Configure Local Python Virtualenv](#configure-local-python-virtualenv)
   * [Filter GPX Points](#filter-gpx-points)
     * [Execution](#execution)
       * [Options](#options)
       * [Process A GPX File](#process-a-gpx-file)
-  * [Images To GPX](#images-to-gpx)
+  * [GPX To GeoJSON](#gpx-to-geojson)
     * [Execution](#execution-1)
       * [Options](#options-1)
+  * [Images To GPX](#images-to-gpx)
+    * [Execution](#execution-2)
+      * [Options](#options-2)
       * [Process A Directory](#process-a-directory)
       * [Process Multiple Directories](#process-multiple-directories)
-    * [Hat Tip](#hat-tip)
+  * [Points To GeoJSON](#points-to-geojson)
+    * [Execution](#execution-3)
+      * [Options](#options-3)
+  * [Hat Tip](#hat-tip)
 
-#GPS Utilities
+# GPS Utilities
 
 Small collection of Python scripts for working with GPS and GPX. Included:
 
 * [Filter GPX Points](#filter-gpx-points)
 * [Images To GPX](#images-to-gpx)
 
-##Python
+## Python
 
 This code has been tested with Python 2.7.x
 
-####Mac OS X El Capitan
+#### Mac OS X El Capitan
 
 If you are running Mac OS X El Capitan, consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-global, more up-to-date Python.
 
-###Non-standard Requirements
+### Non-standard Requirements
 
 * [ExifRead](https://pypi.python.org/pypi/ExifRead/)
 * [gpxpy](https://github.com/tkrajina/gpxpy)
 * [LatLon](https://pypi.python.org/pypi/LatLon/1.0.2)
 
-###Initial Setup
+### Initial Setup
 
-To install all the things you need for your local Python environment:
+#### Configure Local Python Virtualenv
 
-    pip install -r ./requirements.txt
+    ```bash
+    # install newish python 3.6.x
+    $ pyenv install 3.6.4
 
-#Filter GPX Points
+    # create a repo specific virtualenv
+    $ pyenv virtualenv 3.6.4 images_to_gpx-3.6.4
+
+    # switch to the new virtualenv
+    $ pyenv local images_to_gpx-3.6.4
+
+    # ensure that pip and setuptools are new
+    $ pip install --upgrade pip setuptools
+
+    # install all the requirements
+    $ pip install -r ./requirements.txt
+    ```
+
+# Filter GPX Points
 
 Take an existing GPX file and filter the points to include only those a certain distance apart.
 
-##Execution
+## Execution
 
-###Options
+### Options
 
     $ ./filter_gpx_points.py -h
     usage: filter_gpx_points.py [-h] -f FILES [--debug] [-d DISTANCE] [-l {debug,info,warning,error,critical}]
@@ -68,7 +90,7 @@ Take an existing GPX file and filter the points to include only those a certain 
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
 
-###Process A GPX File
+### Process A GPX File
 
 <details>
   <summary>`$ ./filter_gpx_points.py -l info -f ./test.gpx | head`</summary>
@@ -89,13 +111,35 @@ INFO:filter_gpx_points.process_files:Reduced points from '480' to '122'
 ```
 </details>
 
-#Images To GPX
+# GPX To GeoJSON
+
+Take GPX files and create a GeoJSON equivilant.
+
+## Execution
+
+### Options
+
+    $ ./gpx_to_geojson.py -h
+
+    usage: gpx_to_geojson.py [-h] -f FILES [--debug] [-l {debug,info,warning,error,critical}]
+
+    Take an existing GPX file convert it to GeoJSON
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -f FILES, --files FILES
+                            Which GPX file to process. Repeat to process multiple files.
+      --debug               Enable additional output
+      -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                            Logging verbosity. Default: warning
+
+# Images To GPX
 
 Take a directory of GPS tagged images and output GPX file representing the tracks.
 
-##Execution
+## Execution
 
-###Options
+### Options
 
     $ ./images_to_gpx.py -h
 
@@ -111,7 +155,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
 
-###Process A Directory
+### Process A Directory
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20`</summary>
@@ -125,7 +169,7 @@ Take a directory of GPS tagged images and output GPX file representing the track
 ```
 </details>
 
-###Process Multiple Directories
+### Process Multiple Directories
 
 <details>
   <summary>`$ ./images_to_gpx.py -d ~/Pictures/2015/10/20 -d ~/Pictures/2015/10/21`</summary>
@@ -149,7 +193,29 @@ Take a directory of GPS tagged images and output GPX file representing the track
 ```
 </details>
 
-##Hat Tip
+# Points To GeoJSON
+
+Take a JSON file of `Lat, Lng` pairs and convert to GeoJSON
+
+## Execution
+
+### Options
+
+    $ ./points_to_geojson.py -h
+
+    usage: points_to_geojson.py [-h] -f FILES [--debug] [-l {debug,info,warning,error,critical}]
+
+    Take JSON of points and convert it to GeoJSON
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -f FILES, --files FILES
+                            Which GPX file to process. Repeat to process multiple files.
+      --debug               Enable additional output
+      -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                            Logging verbosity. Default: warning
+
+# Hat Tip
 
 Thanks to [Eran Sandler](http://eran.sandler.co.il) for the example code (`_convert_to_degress` and `get_lat_lon`):
 

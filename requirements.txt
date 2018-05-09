@@ -10,3 +10,6 @@ ExifRead == 2.1.2
 # filter_gpx_points.py: 9,10
 # images_to_gpx.py: 12
 gpxpy == 1.0.0
+
+geojson
+pylint
