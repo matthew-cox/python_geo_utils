@@ -2,7 +2,7 @@
 
 Table of Contents
 =================
-  * [GPS Utilities](#gps-utilities)
+  * [Python Geo Utilities](#python-geo-utilities)
     * [Python](#python)
         * [Mac OS X El Capitan](#mac-os-x-el-capitan)
       * [Non-standard Requirements](#non-standard-requirements)
@@ -25,7 +25,7 @@ Table of Contents
         * [Options](#options-3)
   * [Hat Tip](#hat-tip)
 
-# GPS Utilities
+# Python Geo Utilities
 
 Small collection of Python scripts for working with GPS, GPX, and GeoJSON. Included:
 
@@ -57,10 +57,10 @@ Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-glob
     $ pyenv install 3.6.4
 
     # create a repo specific virtualenv
-    $ pyenv virtualenv 3.6.4 images_to_gpx-3.6.4
+    $ pyenv virtualenv 3.6.4 python_geo_utilis-36
 
     # switch to the new virtualenv
-    $ pyenv local images_to_gpx-3.6.4
+    $ pyenv local python_geo_utilis-36
 
     # ensure that pip and setuptools are new
     $ pip install --upgrade pip setuptools
