@@ -8,29 +8,31 @@ Table of Contents
       * [Non-standard Requirements](#non-standard-requirements)
       * [Initial Setup](#initial-setup)
         * [Configure Local Python Virtualenv](#configure-local-python-virtualenv)
-  * [Filter GPX Points](#filter-gpx-points)
-    * [Execution](#execution)
-      * [Options](#options)
-      * [Process A GPX File](#process-a-gpx-file)
-  * [GPX To GeoJSON](#gpx-to-geojson)
-    * [Execution](#execution-1)
-      * [Options](#options-1)
-  * [Images To GPX](#images-to-gpx)
-    * [Execution](#execution-2)
-      * [Options](#options-2)
-      * [Process A Directory](#process-a-directory)
-      * [Process Multiple Directories](#process-multiple-directories)
-  * [Points To GeoJSON](#points-to-geojson)
-    * [Execution](#execution-3)
-      * [Options](#options-3)
+    * [Filter GPX Points](#filter-gpx-points)
+      * [Execution](#execution)
+        * [Options](#options)
+        * [Process A GPX File](#process-a-gpx-file)
+    * [GPX To GeoJSON](#gpx-to-geojson)
+      * [Execution](#execution-1)
+        * [Options](#options-1)
+    * [Images To GPX](#images-to-gpx)
+      * [Execution](#execution-2)
+        * [Options](#options-2)
+        * [Process A Directory](#process-a-directory)
+        * [Process Multiple Directories](#process-multiple-directories)
+    * [Points To GeoJSON](#points-to-geojson)
+      * [Execution](#execution-3)
+        * [Options](#options-3)
   * [Hat Tip](#hat-tip)
 
 # GPS Utilities
 
-Small collection of Python scripts for working with GPS and GPX. Included:
+Small collection of Python scripts for working with GPS, GPX, and GeoJSON. Included:
 
 * [Filter GPX Points](#filter-gpx-points)
+* [GPX To GeoJSON](#gpx-to-geojson)
 * [Images To GPX](#images-to-gpx)
+* [Points To GeoJSON](#points-to-geojson)
 
 ## Python
 
