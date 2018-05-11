@@ -1,10 +1,10 @@
-**Last Updated: 2018-05-09 17:24 @matthew-cox**
+**Last Updated: 2018-05-11 18:07 @matthew-cox**
 
 Table of Contents
 =================
   * [Python Geo Utilities](#python-geo-utilities)
     * [Python](#python)
-        * [Mac OS X El Capitan](#mac-os-x-el-capitan)
+        * [Pyenv + Virtualenv](#pyenv--virtualenv)
       * [Non-standard Requirements](#non-standard-requirements)
       * [Initial Setup](#initial-setup)
         * [Configure Local Python Virtualenv](#configure-local-python-virtualenv)
@@ -23,7 +23,7 @@ Table of Contents
     * [Points To GeoJSON](#points-to-geojson)
       * [Execution](#execution-3)
         * [Options](#options-3)
-  * [Hat Tip](#hat-tip)
+    * [Hat Tip](#hat-tip)
 
 # Python Geo Utilities
 
