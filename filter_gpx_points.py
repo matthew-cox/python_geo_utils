@@ -2,71 +2,110 @@
 '''
 Take a GPX file and remove some points based on distance between them
 '''
+#
+# Standard imports
+#
+from __future__ import print_function
 import argparse
 import logging
+import os
 import re
-
+#
+# Non-standard imports
+#
 import gpxpy
 import gpxpy.gpx
 import LatLon
-
+#
+##############################################################################
+#
+# Global variables
+#
 DEFAULT_DISTANCE = 0.08
-DEFAULT_LOG_LEVEL = 'warning'
+DEFAULT_LOG_LEVEL = 'WARNING'
+#
+##############################################################################
+#
+# _get_logger() - reusable code to get the correct logger by name
+#
+def _get_logger():
+    '''_get_logger() - reuable code to get the correct logger by name'''
+    return logging.getLogger(os.path.basename(__file__))
+#
+###############################################################################
+#
+# process_track()
+#
+def process_track(track=None, spacing=None):
+    '''
+    process_track(track, spacing) - Take a GPX track and filter it to points at least spacing apart
+    '''
+    gpx_track = None
+    if None not in [track]:
+        orig_num_points = new_num_points = 0
+        spacing = spacing if spacing else DEFAULT_DISTANCE
+
+        _get_logger().info("Processing track: '%s'", track.name)
+        # Create first track in our GPX:
+        gpx_track = gpxpy.gpx.GPXTrack()
+        gpx_track.name = track.name + " (filtered to {})".format(spacing)
+
+        for segment in track.segments:
+            # Create a segment in our GPX track:
+            new_segment = gpxpy.gpx.GPXTrackSegment()
+
+            current_point = previous_point = None
+
+            for point in segment.points:
+                orig_num_points += 1
+                _get_logger().debug('Point at (%f,%f) -> %s', point.latitude, point.longitude,
+                                    point.elevation)
+                current_point = LatLon.LatLon(point.latitude, point.longitude)
+                if not previous_point:
+                    _get_logger().debug('No previous point!')
+                    previous_point = current_point
+                    new_segment.points.append(point)
+                    new_num_points += 1
+                else:
+                    distance = previous_point.distance(current_point)
+                    _get_logger().debug('Distance between points: %f', distance)
+                    if distance >= spacing:
+                        previous_point = current_point
+                        new_segment.points.append(point)
+                        new_num_points += 1
+
+            gpx_track.segments.append(new_segment)
+
+        _get_logger().info("Reduced points from '%s' to '%s'", orig_num_points, new_num_points)
+
+    return gpx_track
+
 #
 ###############################################################################
 #
 # process_files()
 #
-def process_files(files=None, spacing=DEFAULT_DISTANCE):
+def process_files(files=None, spacing=None):
     '''
-    process_files(files=[], distance=DEFAULT_DISTANCE)
+    process_files(files=[], spacing=DEFAULT_DISTANCE)
     '''
+
+    if None in [files]:
+        raise RuntimeError("No files to process!")
+
+    spacing = spacing if spacing else DEFAULT_DISTANCE
 
     for gpx_file in files:
         new_gpx = gpxpy.gpx.GPX()
 
         # Parsing an existing file:
-        logging.info("Processing file: '%s'", gpx_file)
+        _get_logger().info("Processing file: '%s'", gpx_file)
         gpx = gpxpy.parse(gpx_file)
 
-        orig_num_points = new_num_points = 0
-
         for track in gpx.tracks:
-            logging.info("Processing track: '%s'", track.name)
-            # Create first track in our GPX:
-            gpx_track = gpxpy.gpx.GPXTrack()
-            gpx_track.name = track.name
-            new_gpx.tracks.append(gpx_track)
+            new_gpx.tracks.append(process_track=track, spacing=spacing)
 
-            for segment in track.segments:
-                # Create a segment in our GPX track:
-                new_segment = gpxpy.gpx.GPXTrackSegment()
-                gpx_track.segments.append(new_segment)
-
-                current_point = previous_point = None
-
-                for point in segment.points:
-                    orig_num_points += 1
-                    logging.debug('Point at (%f,%f) -> %s', point.latitude,
-                                  point.longitude, point.elevation)
-                    current_point = LatLon.LatLon(point.latitude, point.longitude)
-                    if not previous_point:
-                        logging.debug('No previous point!')
-                        previous_point = current_point
-                        new_segment.points.append(point)
-                        new_num_points += 1
-                    else:
-                        distance = previous_point.distance(current_point)
-                        logging.debug('Distance between points: %f', distance)
-                        if distance >= spacing:
-                            previous_point = current_point
-                            new_segment.points.append(point)
-                            new_num_points += 1
-
-        logging.info("Reduced points from '%s' to '%s'", orig_num_points,
-                     new_num_points)
-
-        print clean_output(new_gpx.to_xml())
+        print(clean_output(new_gpx.to_xml()))
 
 #
 ###############################################################################
@@ -99,7 +138,7 @@ def main():
     # Handle CLI args
     #
     parser = argparse.ArgumentParser(description=('Take an existing GPX file and filter the points '
-                                                  'to include only those a certain distance apart.'))
+                                                  'to only those a certain distance apart.'))
 
     parser.add_argument('-f', '--files', default=[], action='append',
                         required=True, type=argparse.FileType('r'),
@@ -122,12 +161,13 @@ def main():
     args = parser.parse_args()
 
     # Enable the debug level logging when in debug mode
-    if args.debug:
-        args.log_level = 'debug'
+    args.log_level = 'debug' if args.debug else args.log_level
 
     # Configure logging
     logging.basicConfig(format='%(levelname)s:%(module)s.%(funcName)s:%(message)s',
                         level=getattr(logging, args.log_level.upper()))
+
+    _get_logger().info("Log level is '%s'", args.log_level.upper())
 
     process_files(files=args.files, spacing=args.distance)
 

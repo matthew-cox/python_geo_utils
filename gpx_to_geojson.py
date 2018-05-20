@@ -81,25 +81,6 @@ def process_files(files=None):
 
             with open(output_file, 'w', encoding="utf8") as output_handle:
                 output_handle.write(dumps(FeatureCollection(tracks)))
-
-#
-###############################################################################
-#
-# clean_output()
-#
-def clean_output(output=None):
-    '''
-    clean_output(output=None)
-
-    Remove extra EOLs from gpx.to_xml()
-    '''
-    if output:
-        # remove some superfluous EOLs
-        point_pattern = re.compile(r'^(<trkpt [^>]*>)\n', re.MULTILINE)
-        elevation_pattern = re.compile(r'^(.*</ele>)\n', re.MULTILINE)
-        output = point_pattern.sub(r"\1", output)
-        output = elevation_pattern.sub(r"\1", output)
-    return output
 #
 ###############################################################################
 #

@@ -1,4 +1,4 @@
-**Last Updated: 2018-05-11 18:07 @matthew-cox**
+**Last Updated: 2018-05-20 14:23 @matthew-cox**
 
 Table of Contents
 =================
@@ -15,14 +15,19 @@ Table of Contents
     * [GPX To GeoJSON](#gpx-to-geojson)
       * [Execution](#execution-1)
         * [Options](#options-1)
-    * [Images To GPX](#images-to-gpx)
+    * [Images To GeoJSON](#images-to-geojson)
       * [Execution](#execution-2)
         * [Options](#options-2)
         * [Process A Directory](#process-a-directory)
         * [Process Multiple Directories](#process-multiple-directories)
-    * [Points To GeoJSON](#points-to-geojson)
+    * [Images To GPX](#images-to-gpx)
       * [Execution](#execution-3)
         * [Options](#options-3)
+        * [Process A Directory](#process-a-directory-1)
+        * [Process Multiple Directories](#process-multiple-directories-1)
+    * [Points To GeoJSON](#points-to-geojson)
+      * [Execution](#execution-4)
+        * [Options](#options-4)
     * [Hat Tip](#hat-tip)
 
 # Python Geo Utilities
@@ -54,10 +59,10 @@ Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-glob
 #### Configure Local Python Virtualenv
 
     # install newish python 3.6.x
-    $ pyenv install 3.6.4
+    $ pyenv install 3.6.5
 
     # create a repo specific virtualenv
-    $ pyenv virtualenv 3.6.4 python_geo_utilis-36
+    $ pyenv virtualenv 3.6.5 python_geo_utils-36
 
     # switch to the new virtualenv
     $ pyenv local python_geo_utilis-36
@@ -135,6 +140,51 @@ Take GPX files and create a GeoJSON equivilant.
       --debug               Enable additional output
       -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
                             Logging verbosity. Default: warning
+
+## Images To GeoJSON
+
+Take a directory of GPS tagged images and output GPX file representing the tracks.
+
+### Execution
+
+#### Options
+
+    $ ./images_to_geojson.py --help
+
+    usage: images_to_geojson.py [-h] -d DIRECTORY [--debug] [-l {debug,info,warning,error,critical}]
+
+    Take a directory of GPS tagged images and output GeoJSON LineString
+
+    optional arguments:
+      -h, --help            show this help message and exit
+      -d DIRECTORY, --directory DIRECTORY
+                            Which directory of images to process. Repeat to process multiple directories.
+      --debug               Enable additional output
+      -l {debug,info,warning,error,critical}, --log-level {debug,info,warning,error,critical}
+                            Logging verbosity. Default: warning
+
+
+#### Process A Directory
+
+<details>
+  <summary><code>$ ./images_to_geojson.py -d ~/Pictures/2015/10/20</code></summary>
+
+```json
+{"type": "LineString", "coordinates": [[-122.405388889,37.7969027778], [-122.404869444,37.7954222222]]}
+```
+
+</details>
+
+#### Process Multiple Directories
+
+<details>
+  <summary><code>$ ./images_to_gpx.py -d ~/Pictures/2015/10/20 -d ~/Pictures/2015/10/21</code></summary>
+
+```json
+{"type": "GeometryCollection", "geometries": [{"type": "LineString", "coordinates": [[-122.405388889,37.7969027778],[-122.404869444,37.7954222222]]}, {"type": "LineString", "coordinates": [[-122.404786111,37.7951305556],[-122.404555556,37.7950555556],[-122.401947222,37.7975388889],[-122.401038889,37.8048277778],[-122.401038889,37.8048277778],[-122.400825,37.8046333333],[-122.400908333,37.8053083333],[-122.400916667,37.8045472222],[-122.40455,37.7951861111]]}]}
+```
+
+</details>
 
 ## Images To GPX
 

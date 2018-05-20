@@ -2,16 +2,34 @@
 """
 Take a directory of GPS tagged images and produce a GPX track file
 """
+#
+# Standard imports
+#
+from __future__ import print_function
 import argparse
 import logging
 import os
 import re
 import time
-
+#
+# Non-standard imports
+#
 import exifread
 import gpxpy.gpx
-
-DEFAULT_LOG_LEVEL = 'warning'
+#
+##############################################################################
+#
+# Global variables
+#
+DEFAULT_LOG_LEVEL = 'WARNING'
+#
+##############################################################################
+#
+# _get_logger() - reusable code to get the correct logger by name
+#
+def _get_logger():
+    '''_get_logger() - reuable code to get the correct logger by name'''
+    return logging.getLogger(os.path.basename(__file__))
 #
 ###############################################################################
 #
@@ -41,9 +59,7 @@ def _convert_to_degress(value):
 #
 def clean_output(output=None):
     '''
-    clean_output(output=None)
-
-    Remove extra EOLs from gpx.to_xml()
+    clean_output(output=None) - Remove extra EOLs from gpx.to_xml()
     '''
     if output:
         # remove some superfluous EOLs
@@ -61,14 +77,10 @@ def clean_output(output=None):
 #
 def get_lat_lon_ele(gps_info):
     """
-    get_lat_lon_ele(gps_info)
-
-    Returns the latitude and longitude, if available
+    get_lat_lon_ele(gps_info) - Returns the latitude and longitude, if available
     """
     #pprint(gps_info)
-    lat = None
-    lon = None
-    ele = None
+    lat = lon = ele = None
 
     gps_altitude = gps_info.get("GPSAltitude", None)
     gps_latitude = gps_info.get("GPSLatitude", None)
@@ -105,13 +117,13 @@ def process_directory(directory=None):
     track = {}
 
     if None in [directory]:
-        logging.warn("Missing arguments!")
+        _get_logger().warning("Missing arguments!")
         return track
 
     for the_file in os.listdir(directory):
         image_file = os.sep.join([directory, the_file])
 
-        logging.info("File is '%s'", image_file)
+        _get_logger().info("File is '%s'", image_file)
         if os.path.isfile(image_file):
             # Open image file for reading (binary mode)
             file_handle = open(image_file, 'rb')
@@ -119,30 +131,29 @@ def process_directory(directory=None):
             # Return Exif tags
             try:
                 tags = exifread.process_file(file_handle, details=False)
-            except Exception, err:
+            except (Exception) as err:
                 raise err
 
             gps_info = {}
             date = None
 
-            for tag in tags.keys():
+            for tag in tags:
                 if re.search('^GPS', tag):
-                    logging.debug("Tag: '%s'", tag)
+                    _get_logger().debug("Tag: '%s'", tag)
                     split = tag.split(' ')
                     key = split[1]
-                    logging.debug("Key: '%s', value '%s'", key, tags[tag])
+                    _get_logger().debug("Key: '%s', value '%s'", key, tags[tag])
                     gps_info[key] = tags[tag].values
 
                 if tag == 'Image DateTime':
-                    logging.debug("Key: '%s', value '%s'", tag, tags[tag])
+                    _get_logger().debug("Key: '%s', value '%s'", tag, tags[tag])
                     #pprint(tags[tag])
                     date = time.strptime(tags[tag].values, '%Y:%m:%d %H:%M:%S')
 
             (lat, lon, ele) = get_lat_lon_ele(gps_info)
 
-            if lat and lon and ele:
-                track[time.mktime(date)] = gpxpy.gpx.GPXTrackPoint(lat, lon,
-                                                                   elevation=ele)
+            if None not in [lat, lon, ele]:
+                track[time.mktime(date)] = gpxpy.gpx.GPXTrackPoint(lat, lon, elevation=ele)
     return track
 #
 ###############################################################################
@@ -151,9 +162,7 @@ def process_directory(directory=None):
 #
 def is_directory(argument):
     '''
-    is_directory(argument)
-
-    Argument validator for the CLI args
+    is_directory(argument) - Argument validator for the CLI args
     '''
 
     if os.path.isdir(argument):
@@ -199,6 +208,8 @@ def main():
     logging.basicConfig(format='%(levelname)s:%(module)s.%(funcName)s:%(message)s',
                         level=getattr(logging, args.log_level.upper()))
 
+    _get_logger().info("Log level is '%s'", args.log_level.upper())
+
     gpx = gpxpy.gpx.GPX()
     # Create first track in our GPX:
     gpx_track = gpxpy.gpx.GPXTrack()
@@ -211,12 +222,12 @@ def main():
 
         track = process_directory(directory)
 
-        for track_time in sorted(track.iterkeys()):
+        for track_time in sorted(track):
             #pprint(track[track_time])
             gpx_segment.points.append(track[track_time])
 
     #pprint(track)
-    print clean_output(gpx.to_xml())
+    print(clean_output(gpx.to_xml()))
 
 if __name__ == '__main__':
     main()
