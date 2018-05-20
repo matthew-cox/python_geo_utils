@@ -65,7 +65,7 @@ Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-glob
     $ pyenv virtualenv 3.6.5 python_geo_utils-36
 
     # switch to the new virtualenv
-    $ pyenv local python_geo_utilis-36
+    $ pyenv local python_geo_utils-36
 
     # ensure that pip and setuptools are new
     $ pip install --upgrade pip setuptools
