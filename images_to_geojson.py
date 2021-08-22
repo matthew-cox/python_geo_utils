@@ -10,6 +10,7 @@ import argparse
 import logging
 import os
 import re
+import sys
 #
 # Non-standard imports
 #
@@ -24,7 +25,7 @@ sys.path.append(os.path.realpath(os.path.join('.', 'lib')))
 #
 # Global variables
 #
-DEFAULT_LOG_LEVEL = 'warning'
+DEFAULT_LOG_LEVEL = 'WARNING'
 #
 ##############################################################################
 #
@@ -170,7 +171,7 @@ def main():
     # Handle CLI args
     #
     parser = argparse.ArgumentParser(description=('Take a directory of GPS tagged'
-                                                  ' images and output GPX track'))
+                                                  ' images and output GeoJSON LineString'))
 
     parser.add_argument('-d', '--directory', default=[], action='append',
                         required=True, type=is_directory,
