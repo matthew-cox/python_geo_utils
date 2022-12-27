@@ -58,14 +58,14 @@ Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-glob
 
 #### Configure Local Python Virtualenv
 
-    # install newish python 3.6.x
-    $ pyenv install 3.6.5
+    # install newish python 3.9.x
+    $ pyenv install 3.9.15
 
     # create a repo specific virtualenv
-    $ pyenv virtualenv 3.6.5 python_geo_utils-36
+    $ pyenv virtualenv 3.9.15 python_geo_utils-39
 
     # switch to the new virtualenv
-    $ pyenv local python_geo_utils-36
+    $ pyenv local python_geo_utils-39
 
     # ensure that pip and setuptools are new
     $ pip install --upgrade pip setuptools

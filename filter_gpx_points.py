@@ -15,7 +15,7 @@ import re
 #
 import gpxpy
 import gpxpy.gpx
-import LatLon
+import latlon
 #
 ##############################################################################
 #
@@ -93,7 +93,7 @@ def process_files(files=None, spacing=None):
     if None in [files]:
         raise RuntimeError("No files to process!")
 
-    spacing = spacing if spacing else DEFAULT_DISTANCE
+    spacing = spacing or DEFAULT_DISTANCE
 
     for gpx_file in files:
         new_gpx = gpxpy.gpx.GPX()
