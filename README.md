@@ -43,10 +43,6 @@ Small collection of Python scripts for working with GPS, GPX, and GeoJSON. Inclu
 
 This code has been tested with Python 2.7.x and 3.6.x
 
-#### Pyenv + Virtualenv
-
-Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-global, more up-to-date Python.
-
 ### Non-standard Requirements
 
 * [ExifRead](https://pypi.python.org/pypi/ExifRead/)
@@ -56,22 +52,17 @@ Consider leveraging [PyEnv](https://github.com/yyuu/pyenv) to install a non-glob
 
 ### Initial Setup
 
-#### Configure Local Python Virtualenv
+#### Pre-commit
 
-    # install newish python 3.9.x
-    $ pyenv install 3.9.15
+❯ pipx install pre-commit
+❯ pre-commit install
+❯ pre-commit run --all-files
 
-    # create a repo specific virtualenv
-    $ pyenv virtualenv 3.9.15 python_geo_utils-39
+#### Poetry
 
-    # switch to the new virtualenv
-    $ pyenv local python_geo_utils-39
-
-    # ensure that pip and setuptools are new
-    $ pip install --upgrade pip setuptools
-
-    # install all the requirements
-    $ pip install -r ./requirements.txt
+❯ pipx install poetry
+❯ poetry install
+❯ poetry install
 
 ## Filter GPX Points
 
@@ -81,7 +72,7 @@ Take an existing GPX file and filter the points to include only those a certain 
 
 #### Options
 
-    $ ./filter_gpx_points.py -h
+    ❯ ./filter_gpx_points.py -h
     usage: filter_gpx_points.py [-h] -f FILES [--debug] [-d DISTANCE] [-l {debug,info,warning,error,critical}]
 
     Take an existing GPX file and filter the points to include only those a certain distance apart.
@@ -99,7 +90,7 @@ Take an existing GPX file and filter the points to include only those a certain 
 #### Process A GPX File
 
 <details>
-  <summary><code>$ ./filter_gpx_points.py -l info -f ./test.gpx | head</code></summary>
+  <summary><code>❯ ./filter_gpx_points.py -l info -f ./test.gpx | head</code></summary>
 
 ```xml
 INFO:filter_gpx_points.process_files:Processing file: '<open file './test.gpx', mode 'r' at 0x10e71ded0>'
